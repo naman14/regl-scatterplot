@@ -792,12 +792,15 @@ const createScatterplot = (
         select([clostestPoint], {
           merge: checkModKey(event, KEY_ACTION_MERGE),
         });
-      } else if (!lassoInitiatorTimeout) {
-        // We'll also wait to make sure the user didn't double click
-        lassoInitiatorTimeout = setTimeout(() => {
-          lassoInitiatorTimeout = null;
-          lassoManager.showInitiator(event);
-        }, SINGLE_CLICK_DELAY);
+      } else {
+        deselect();
+        if (!lassoInitiatorTimeout) {
+          // We'll also wait to make sure the user didn't double click
+          lassoInitiatorTimeout = setTimeout(() => {
+            lassoInitiatorTimeout = null;
+            lassoManager.showInitiator(event);
+          }, SINGLE_CLICK_DELAY);
+        }
       }
     }
   };
